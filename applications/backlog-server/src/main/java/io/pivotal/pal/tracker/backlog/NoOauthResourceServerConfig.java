@@ -10,8 +10,9 @@ import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-@ConditionalOnProperty(value = "application.oath-enabled", havingValue = "false")
-public class NoOauthResourceServerConfig extends ResourceServerConfigurerAdapter{
+@ConditionalOnProperty(value = "application.oauth-enabled", havingValue = "false")
+public class NoOauthResourceServerConfig extends ResourceServerConfigurerAdapter {
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().permitAll();
