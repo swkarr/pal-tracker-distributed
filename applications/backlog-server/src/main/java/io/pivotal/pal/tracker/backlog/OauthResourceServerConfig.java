@@ -13,8 +13,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.web.client.RestOperations;
 
 @Configuration
-@ConditionalOnProperty(value = "application.oath-enabled", matchIfMissing = true)
+@ConditionalOnProperty(value = "application.oauth-enabled", matchIfMissing = true)
 public class OauthResourceServerConfig extends ResourceServerConfigurerAdapter {
+
     @Bean
     @LoadBalanced
     public RestOperations restTemplate(OAuth2ProtectedResourceDetails resource, OAuth2ClientContext oauth2ClientContext) {
@@ -22,14 +23,14 @@ public class OauthResourceServerConfig extends ResourceServerConfigurerAdapter {
     }
 
     @Override
-    public void configure (HttpSecurity http) throws Exception {
-        // Enforce oath security on our end points
+    public void configure(HttpSecurity http) throws Exception {
+        // enforce authentication on our API endpoints.
         http.authorizeRequests().anyRequest().authenticated();
     }
 
     @Override
-    public void configure (ResourceServerSecurityConfigurer resources) throws Exception {
-        // Do not require a resource ID in Access Token
+    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        // do not require a resource id in AccessToken.
         resources.resourceId(null);
     }
 }
